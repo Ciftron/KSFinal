@@ -17,7 +17,7 @@
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About Us</a></li>
           <li><a href="#timer-container">Countdown</a></li>
-          <li><a href="#mission">Missions</a></li>
+          <li><a href="#gallery">Gallery</a></li>
         </ul>
         <div class="language-selector">
           <button onclick="setLanguage('en')">English</button>
@@ -74,38 +74,39 @@
       </div>
     </section>
 
-    <!-- <section id="mission">
-      <h2>Our Mission</h2>
-      <p>Learn more about our vision, our strategy, and how to achieve it.</p>
-
-      <div class="content-wrapper">
-        <div class="left">
-          <div class="box">
-            <h3>Medical Policy</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-          <div class="box">
-            <h3>Our Campaign</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
+    <section id="gallery">
+      <h1>Gallery</h1>
+      <div class="gallery-slider">
+        <div class="slide">
+          <img src="galleryimages/s4 copy.jpg" alt="Gallery Image 1" />
         </div>
-
-        <div class="image-box">
-          <img src="images/mission.jpg" alt="Mission Image" />
+        <div class="slide">
+          <img src="galleryimages/s5.jpg" alt="Gallery Image 2" />
         </div>
-
-        <div class="right">
-          <div class="box">
-            <h3>Donations Engine</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-          <div class="box">
-            <h3>Our Party Growing</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
+        <div class="slide">
+          <img src="galleryimages/s6 copy 3.jpg" alt="Gallery Image 3" />
+        </div>
+        <div class="slide">
+          <img src="galleryimages/s7 copy 2.jpg" alt="Gallery Image 4" />
+        </div>
+        <div class="slide">
+          <img src="galleryimages/s8 copy.jpg" alt="Gallery Image 5" />
+        </div>
+        <div class="slide">
+          <img src="galleryimages/s8.jpg" alt="Gallery Image 6" />
+        </div>
+        <div class="slide">
+          <img src="galleryimages/s9.jpg" alt="Gallery Image 7" />
+        </div>
+        <!-- Add more slides as needed -->
+        <div class="slide">
+          <img src="galleryimages/s4 copy.jpg" alt="Gallery Image 1" />
+        </div>
+        <div class="slide">
+          <img src="galleryimages/s5.jpg" alt="Gallery Image 2" />
         </div>
       </div>
-    </section> -->
+    </section>
 
     <section id="Ask">
       <div class="ask_background-image"></div>
@@ -333,6 +334,28 @@
       })
       .catch((error) => console.error("Error!", error.message));
   });
+
+  const gallerySlider = document.querySelector(".gallery-slider");
+  const slides = document.querySelectorAll(".slide");
+  let currentIndex = 0;
+  let slidesPerView = window.innerWidth >= 768 ? 3 : 1; // 3 images per slide on desktop, 1 on mobile
+
+  function slideImages() {
+    currentIndex = (currentIndex + slidesPerView) % slides.length;
+    gallerySlider.style.transform = `translateX(-${
+      (currentIndex * 100) / slidesPerView
+    }%)`;
+  }
+
+  // Adjust slidesPerView on resize and reset currentIndex to avoid misalignment
+  window.addEventListener("resize", () => {
+    slidesPerView = window.innerWidth >= 768 ? 3 : 1;
+    currentIndex = 0;
+    gallerySlider.style.transform = `translateX(0)`;
+  });
+
+  // Auto-slide every 3 seconds
+  setInterval(slideImages, 3000);
 </script>
 
 <style>
@@ -970,5 +993,55 @@
   .footer h2,
   h3 {
     color: #fff;
+  }
+  /* Gallery Container */
+  #gallery {
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  #gallery h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  /* Slider */
+  .gallery-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 500px;
+  }
+
+  /* Each Slide */
+  .slide {
+    min-width: 100%; /* Default: full width for mobile */
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    background: linear-gradient(
+      45deg,
+      rgb(219, 113, 0),
+      rgb(139, 67, 0),
+      black
+    );
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    color: black; /* Text color */
+    background-origin: border-box;
+  }
+
+  /* Desktop View - Show 3 images per view */
+  @media (min-width: 768px) {
+    .slide {
+      min-width: 33.3333%; /* Show three images in one row for desktop view */
+    }
   }
 </style>
